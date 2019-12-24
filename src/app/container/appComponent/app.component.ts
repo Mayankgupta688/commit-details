@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import RepoDetails from "../../entities/RepoDetails";
 import CommitDetails from "../../entities/CommitDetails";
+import ApplicationDataService from "../../services/application-data.service";
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -12,10 +13,10 @@ export class AppComponent implements OnInit {
   repositoryDetails: RepoDetails;
   commitList: CommitDetails[] = [];
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient, private appData: ApplicationDataService) { }
 
   ngOnInit() {
-    this._http.get("https://api.github.com/repos/angular/angular").subscribe((res)=>{
+    this.appData.getRepositoryData().subscribe((res)=>{
       this.repositoryDetails = new RepoDetails()
       this.repositoryDetails.avatarUrl = res['organization']['avatar_url'];
       this.repositoryDetails.ownerLogin = res['owner']['login'];
@@ -28,7 +29,7 @@ export class AppComponent implements OnInit {
       this.repositoryDetails.language = res["language"];
     });
 
-    this._http.get("https://api.github.com/repos/angular/angular/commits").subscribe((commitList: any)=>{
+    this.appData.getCommitData().subscribe((commitList: any)=>{
       commitList.forEach(commitData => {
         let singleCommit: CommitDetails = new CommitDetails();
         singleCommit.author = commitData.commit.author.name;
