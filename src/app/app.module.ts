@@ -6,13 +6,15 @@ import { AppComponent } from './container/appComponent/app.component';
 import { RepoContainerComponent } from './container/repoContainerComponent/repo-container.component';
 import HeaderComponent from "./components/headerComponent/header.component";
 import RepoDetailsComponent  from "./components/repoDetailsComponent/repo-details.container";
+import CommitListComponent from "./components/commitListComponent/commit-list.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     RepoContainerComponent,
     HeaderComponent,
-    RepoDetailsComponent
+    RepoDetailsComponent,
+    CommitListComponent
   ],
   imports: [
     HttpClientModule,
